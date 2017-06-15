@@ -30,6 +30,7 @@ private ClienteRepository clienteRepository;
 private List<Cliente> clientes;
 
 private Cliente cliente = new Cliente();
+private boolean modoEdicao = false;
 
 @PostConstruct
 public void init(){
@@ -37,12 +38,24 @@ public void init(){
 }
 
 public void salvar(){
-
+if(!modoEdicao)
 	clienteRepository.save(cliente);
 	clientes.add(cliente);
 	cliente = new Cliente();
+	modoEdicao = false;
 	
 
+}
+
+public void excluir(Cliente cliente){
+	clienteRepository.delete(cliente);
+	clientes.remove(cliente);
+}
+
+public void editar(Cliente cliente){
+	setCliente(cliente);
+	modoEdicao = true;
+	
 }
 
 public Cliente getCliente(){

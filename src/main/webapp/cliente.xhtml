@@ -17,13 +17,28 @@
 	
 	<p:dataTable value="#{clienteController.clientes}" var="c" id="dtCliente">
 		<p:column>
+		<f:facet name="header">ID</f:facet>
 			#{c.id}
 		</p:column>
 		<p:column>
+		<f:facet name="header">Nome</f:facet>
 			#{c.nome}
 		</p:column>
+		
 		<p:column>
+		<f:facet name="header">E-mail</f:facet>
 			#{c.email}
+		</p:column>
+		
+		<p:column>
+		<f:facet name="header">Ação</f:facet>
+		<h:commandButton action="#{clienteController.excluir(c)}" value="Excluir" onclick="return window.confirm('Tem a Certeza?')">
+			<f:ajax render="frmCliente:dtCliente"/>
+		</h:commandButton>
+		
+		<h:commandButton action="#{clienteController.editar(c)}" value="Editar">
+			<f:ajax render="frmCliente"/>
+		</h:commandButton>
 		</p:column>
 	</p:dataTable>
 </h:form>
