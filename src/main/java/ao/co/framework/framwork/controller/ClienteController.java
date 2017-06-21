@@ -38,11 +38,12 @@ public void init(){
 }
 
 public void salvar(){
-if(!modoEdicao)
+
 	clienteRepository.save(cliente);
+	if(!isModoEdicao())
 	clientes.add(cliente);
 	cliente = new Cliente();
-	modoEdicao = false;
+	setModoEdicao(false);
 	
 
 }
@@ -64,6 +65,11 @@ public Cliente getCliente(){
 
 public void setCliente(Cliente cliente){
 	this.cliente = cliente;
+}
+
+public void cancelar(){
+	cliente = new Cliente();
+	modoEdicao = false;
 }
 
 }

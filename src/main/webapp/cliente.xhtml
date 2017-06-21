@@ -11,9 +11,20 @@
 <h:form id="frmCliente">
 	Nome: <p:inputText value="#{clienteController.cliente.nome}"/>
 	E-mail: <p:inputText value="#{clienteController.cliente.email}"/>
+		
+	Província: <h:selectOneMenu value="#{clienteController.cliente.provincia}" converter="#{provinciaConversor}">
+					<f:selectItem noSelectionOption="true" itemLabel="Seleccione..." itemValue=""/>
+					<f:selectItems value="#{provinciaController.provincias}" var="p" itemLabel="#{p.prov}"/>
+				
+				</h:selectOneMenu>
+		
 	<h:commandButton action="#{clienteController.salvar}" value="Salvar">
-	<f:ajax execute="frmCliente" render="dtCliente"></f:ajax>
+	<f:ajax execute="frmCliente" render="frmCliente"></f:ajax>
 	</h:commandButton>
+	<h:commandButton rendered="#{clienteController.modoEdicao}" action="#{clienteController.cancelar}" value="Cancelar">
+		<f:ajax render="frmCliente"></f:ajax>
+	</h:commandButton>
+	
 	
 	<p:dataTable value="#{clienteController.clientes}" var="c" id="dtCliente">
 		<p:column>
@@ -28,6 +39,11 @@
 		<p:column>
 		<f:facet name="header">E-mail</f:facet>
 			#{c.email}
+		</p:column>
+		
+		<p:column>
+		<f:facet name="header">Província</f:facet>
+			#{c.provincia.prov}
 		</p:column>
 		
 		<p:column>
